@@ -1,7 +1,7 @@
 describe('Basic user flow for SPA ', () => {
   beforeAll(async () => {
     await page.goto('http://127.0.0.1:5500');
-    //await page.waitForTimeout(500);
+    await page.waitForTimeout(500);
   });
 
   // test 1 is given
@@ -159,13 +159,14 @@ describe('Basic user flow for SPA ', () => {
     expect(content.content).toBe("Mama always said life was like a box of chocolates. You never know what you're gonna get.");
     expect(content.image['src']).toBe("https://s.abcnews.com/images/Entertainment/HT_forrest_gump_ml_140219_4x3_992.jpg");
     expect(content.image['alt']).toBe("forrest running");
-  });
+  }, 10000);
 
   // create your own test 17
   it('Test17: Clicking third <journal-entry>, checking page header title should be Entry 3', async () => {
     await page.goBack();
     let entries = await page.$$('journal-entry');
     await entries[2].click();
+    await page.waitForNavigation();
     let content = await page.evaluate(() => {
       return document.querySelector('header > h1').innerHTML;  
     });
@@ -173,12 +174,15 @@ describe('Basic user flow for SPA ', () => {
  });
 
   // create your own test 18
-  it('Test18: Clicking the third <journal-entry>, new URL should contain /#entry3', async () => {
-    expect(page.url()).toBe("http://127.0.0.1:5500/#entry3");
+  it('Test18: Click go back and should get original url', async () => {
+    await page.goBack();
+    expect(page.url()).toBe("http://127.0.0.1:5500");
   });
 
   // create your own test 19
-  it('Test16: When clicking on the third entry, entry page contents is correct', async () => {
+  it('Test19: When clicking on the third entry, entry page contents is correct', async () => {
+    await entries[2].click();
+    await page.waitForNavigation();
     let content = await page.evaluate(() => {
       return document.querySelector('entry-page').entry;
     });
@@ -186,7 +190,7 @@ describe('Basic user flow for SPA ', () => {
     expect(content.title).toBe('Ogres are like onions');
     expect(content.date).toBe('4/27/2021');
     expect(content.content).toBe("Onions have layers. Ogres have layers. Onions have layers. You get it? We both have layers.");
-  });
+  }, 10000);
 
   // create your own test 20
   it('Test20: Clicking the fourth <journal-entry>, new URL should contain /#entry4', async () => {
