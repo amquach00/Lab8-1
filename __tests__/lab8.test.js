@@ -176,11 +176,12 @@ describe('Basic user flow for SPA ', () => {
   // create your own test 18
   it('Test18: Click go back and should get original url', async () => {
     await page.goBack();
-    expect(page.url()).toBe("http://127.0.0.1:5500");
+    expect(page.url()).toBe("http://127.0.0.1:5500/");
   });
 
   // create your own test 19
   it('Test19: When clicking on the third entry, entry page contents is correct', async () => {
+    let entries = await page.$$('journal-entry');
     await entries[2].click();
     await page.waitForNavigation();
     let content = await page.evaluate(() => {
