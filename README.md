@@ -1,7 +1,7 @@
 # Lab8_Starter
 
 ## Authors
-Alec Smith and Amanda Quach
+Amanda Quach
 
 ## Check your understanding q's (FILL OUT)
 1. In your own words: Where would you fit your automated tests in your Bujo project development pipeline? (just write the letter)
